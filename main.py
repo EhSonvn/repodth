@@ -4,6 +4,7 @@ import pytz
 from datetime import date
 from discord.ext import commands
 import requests
+import os
 #chỉnh prefix
 prefix="?"
 
@@ -50,6 +51,9 @@ async def on_message(message):
   
 #command của bot
 @bot.command()
+async def khoidong(ctx):
+  await ctx.send("Bot đã sẵn sàng!")
+@bot.command()
 async def dayrn(ctx):
   await ctx.send(date_rn)
 @bot.command()
@@ -68,4 +72,4 @@ async def nhietdodl(ctx):
    
  
 #chạy bot
-bot.run("OTU3MTUzNjM2MDYzMDEwODM3.Yj6oyQ.9Pf7DRtwihdpSVj-iErozsOZDVs")
+bot.run(os.getenv('secret_token'))
