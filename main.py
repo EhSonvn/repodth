@@ -8,8 +8,6 @@ import os
 #chỉnh prefix
 prefix="?"
 
-
-
 #khởi tạo bot
 bot = commands.Bot(command_prefix = prefix)
 
@@ -35,7 +33,7 @@ async def on_message(message):
     if message.content.startswith("goodnight"):
         await message.channel.send("Goodnight")
 
-  
+ 
   
 #command của bot
 @bot.command()
@@ -54,7 +52,7 @@ async def monthrn(ctx):
 async def yearrn(ctx):
   await ctx.send(year_rn)
 @bot.command()
-async def nhiet(ctx, arg):
+async def xemtt(ctx, arg):
   user_api = "dbea7ad7feadaf1076361fe27785793c"
   a = arg
   user_api = "dbea7ad7feadaf1076361fe27785793c"
