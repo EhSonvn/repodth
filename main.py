@@ -23,17 +23,6 @@ year_rn = my_date.strftime("%Y")
 async def on_ready():
     print('We have logged in as {0.user}'.format(bot))
   
-@bot.event
-async def on_message(message):
-    if message.author == bot.user:
-        return
-    if message.content.startswith("hello"):
-        await message.channel.send("hi")
-    await bot.process_commands(message)
-    if message.content.startswith("goodnight"):
-        await message.channel.send("Goodnight")
-
- 
   
 #command của bot
 @bot.command()
@@ -63,7 +52,7 @@ async def xemtt(ctx, arg):
   hmdt = api_data['main']['humidity']
   wind_spd = api_data['wind']['speed']
   city_name =  api_data['name']
-  report = "Tình hình thời tiết tại {0}: {1}\n Nhiệt độ: {2}\n Tốc độ gió: {3}\n Độ ẩm: {4}%".format(city_name, weather_desc, temp_city, wind_spd, hmdt)
+  report = "Tình hình thời tiết tại {0}: {1}\n Nhiệt độ: {2}\n Tốc độ gió: {3}m/s\n Độ ẩm: {4}%".format(city_name, weather_desc, temp_city, wind_spd, hmdt)
   await ctx.send(report)
     
 
