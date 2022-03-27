@@ -52,25 +52,28 @@ async def yearrn(ctx):
   await ctx.send(year_rn)
   
 @bot.command()
-async def xemtt(ctx, arg):
-  user_api = os.getenv('weather_api')
-  a = arg
-  api_add = "https://api.openweathermap.org/data/2.5/weather?q="+a+"&appid="+user_api+"&lang=vi"
+async def xemtt(ctx, arg1, arg2='', arg3=''):
+  api_key = os.getenv('weather_api')
   
-  api_data = requests.get(api_add).json()
+  link = 'http://api.weatherapi.com/v1/current.json?key='+api_key+'&q='+arg1+'%20'+arg2+'%20'+arg3+'&lang=vi'
   
-  temp_city = ((api_data['main']['temp']) - 273.15)
+  data = requests.get(link).json()
   
-  weather_desc = api_data['weather'][0]['description']
+  city_temp =  round(data['current']['temp_c'])
   
-  hmdt = api_data['main']['humidity']
+  city_desc = data['current']['condition']['text']
   
-  wind_spd = api_data['wind']['speed']
+  city = data['location']['name']
   
-  city_name =  api_data['name']
+  last_update = data['current']['last_updated']
   
-  report = "Tình hình thời tiết tại {0}: {1}\n Nhiệt độ: {2}\n Tốc độ gió: {3}m/s\n Độ ẩm: {4}%".format(city_name, weather_desc, temp_city, wind_spd, hmdt)
-  await ctx.send(report)
+  wind_direction = data['current']['wind_dir']
+  
+  wind_speed = round(data['current']['wind_kph']/3.6)
+  
+  a = "Hiện tại thời tiết tại {0} được cập nhật gần nhất vào lúc {1} có nhiệt độ là {2} độ C; {3}\nHướng gió {4}, tốc độ gió {5}m/s ".format(city, last_update, city_temp, city_desc, wind_direction, wind_speed)
+  
+  await ctx.send(a)
   
 @bot.command()
 async def define(ctx, arg):
@@ -83,9 +86,8 @@ async def define(ctx, arg):
   word_def =  get_def[0]['word']
   
   word_def2 =  get_def[0]['meanings'][0]['definitions'][0]['definition']
-  a = "Word: {0}\n Definition: {1}\n".format(word_def, word_def2)
+  a = "Word: {0}\n Definition: {1}\n ".format(word_def, word_def2)
   await ctx.send(a)
     
-
 #chạy bot
 bot.run(os.getenv('secret_token'))
