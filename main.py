@@ -6,6 +6,7 @@ from discord.ext import commands
 import requests
 import os
 import discord
+import time
 #chỉnh prefix
 prefix="?"
 
@@ -41,10 +42,6 @@ async def dayrn(ctx):
   await ctx.send(date_rn)
   
 @bot.command()
-async def timern(ctx):
-  await ctx.send(my_time)
-  
-@bot.command()
 async def monthrn(ctx):
   await ctx.send(month_rn)
   
@@ -57,10 +54,11 @@ async def xemtt(ctx, arg1, arg2='', arg3=''):
   api_key = os.getenv('weather_api')
   
   link = 'http://api.weatherapi.com/v1/current.json?key='+api_key+'&q='+arg1+'%20'+arg2+'%20'+arg3+'&lang=vi'
-  
+
+   
   data = requests.get(link).json()
   
-  city_temp =  round(data['current']['temp_c'])
+  city_temp =  round(data['current']['temp_c'], 2)
   
   city_desc = data['current']['condition']['text']
   
@@ -74,7 +72,7 @@ async def xemtt(ctx, arg1, arg2='', arg3=''):
 
   humidity =  data['current']['humidity']
   
-  wind_speed = data['current']['wind_kph']/3.6
+  wind_speed = round(data['current']['wind_kph']/3.6,2)
   
   embed=discord.Embed(title = 'Thông tin về thời tiết tại {0} thuộc {1}'.format(city, country), description = 'Dữ liệu mới nhật được cập nhật vào lúc {0}'.format(last_update), colour=discord.Color.blue())
   
@@ -91,7 +89,7 @@ async def xemtt(ctx, arg1, arg2='', arg3=''):
   embed.add_field(name="Tốc độ gió", value='{0}m/s'.format(wind_speed), inline=True)
   
   await ctx.send(embed=embed)
-  
+
 @bot.command()
 async def define(ctx, arg):
   words = arg
@@ -105,6 +103,14 @@ async def define(ctx, arg):
   word_def2 =  get_def[0]['meanings'][0]['definitions'][0]['definition']
   a = "Word: {0}\n Definition: {1}\n ".format(word_def, word_def2)
   await ctx.send(a)
-    
+@bot.command()
+async def timern(ctx):
+  
+  timestamp = time.time()
+  
+  ts = datetime.fromtimestamp(timestamp+25200).strftime('%H:%M:%S')
+  
+  await ctx.send(ts)
+
 #chạy bot
 bot.run(os.getenv('secret_token'))
