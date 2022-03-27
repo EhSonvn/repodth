@@ -8,28 +8,18 @@ import os
 #chỉnh prefix
 prefix="?"
 
-#dùng api của openweather để lấy thông tin thời tiết
-api_request ='http://api.openweathermap.org/data/2.5/weather?q=dalat&appid=cee343d33e41970dd63c44b39c8620ab'
-data = requests.get(api_request).json()
-format_data = data['main']
 
-a = "Nhiệt độ của thành phố Đà Lạt hôm nay có nhiệt độ thấp nhất là {0}, nhiệt độ cao nhất là {1} Độ C".format(
-int(format_data['temp_min']-273),int(format_data['temp_max']-273))
-
-
-#chỉnh format của ngày tháng năm
-date_format = "%y/%m/%d"
 
 #khởi tạo bot
 bot = commands.Bot(command_prefix = prefix)
 
 #khai báo biến ngày tháng năm và dùng múi giờ việt nam
 my_time =datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).time()
+my_time = datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).time()
 my_date = date.today()
 date_rn = my_date.strftime("%d")
 month_rn = my_date.strftime("%m")
 year_rn = my_date.strftime("%Y")
-
 #event của bot
 @bot.event
 async def on_ready():
@@ -44,8 +34,6 @@ async def on_message(message):
     await bot.process_commands(message)
     if message.content.startswith("goodnight"):
         await message.channel.send("Goodnight")
-
-  
 
   
   
@@ -66,10 +54,20 @@ async def monthrn(ctx):
 async def yearrn(ctx):
   await ctx.send(year_rn)
 @bot.command()
-async def nhietdodl(ctx):
-  await ctx.send(a)
+async def nhiet(ctx, arg):
+  user_api = "dbea7ad7feadaf1076361fe27785793c"
+  a = arg
+  user_api = "dbea7ad7feadaf1076361fe27785793c"
+  api_add = "https://api.openweathermap.org/data/2.5/weather?q="+a+"&appid="+user_api+"&lang=vi"
+  api_data = requests.get(api_add).json()
+  temp_city = ((api_data['main']['temp']) - 273.15)
+  weather_desc = api_data['weather'][0]['description']
+  hmdt = api_data['main']['humidity']
+  wind_spd = api_data['wind']['speed']
+  city_name =  api_data['name']
+  report = "Tình hình thời tiết tại {0}: {1}\n Nhiệt độ: {2}\n Tốc độ gió: {3}\n Độ ẩm: {4}%".format(city_name, weather_desc, temp_city, wind_spd, hmdt)
+  await ctx.send(report)
+    
 
-   
- 
 #chạy bot
 bot.run(os.getenv('secret_token'))
