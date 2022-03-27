@@ -5,6 +5,7 @@ from datetime import date
 from discord.ext import commands
 import requests
 import os
+import discord
 #chỉnh prefix
 prefix="?"
 
@@ -68,12 +69,28 @@ async def xemtt(ctx, arg1, arg2='', arg3=''):
   last_update = data['current']['last_updated']
   
   wind_direction = data['current']['wind_dir']
+
+  country = data['location']['country']
+
+  humidity =  data['current']['humidity']
   
-  wind_speed = round(data['current']['wind_kph']/3.6)
+  wind_speed = data['current']['wind_kph']/3.6
   
-  a = "Hiện tại thời tiết tại {0} được cập nhật gần nhất vào lúc {1} có nhiệt độ là {2} độ C; {3}\nHướng gió {4}, tốc độ gió {5}m/s ".format(city, last_update, city_temp, city_desc, wind_direction, wind_speed)
+  embed=discord.Embed(title = 'Thông tin về thời tiết tại {0} thuộc {1}'.format(city, country), description = 'Dữ liệu mới nhật được cập nhật vào lúc {0}'.format(last_update), colour=discord.Color.blue())
   
-  await ctx.send(a)
+  embed.add_field(name="Nhiệt độ", value="{0} độ C".format(city_temp), inline=True)
+  
+  embed.set_footer(text='Dữ liệu từ weatherapi.')
+  
+  embed.add_field(name='Tình hình', value=city_desc, inline=True)
+     
+  embed.add_field(name="Độ ẩm", value="{0}%".format(humidity), inline=True)
+  
+  embed.add_field(name="Hướng gió", value=wind_direction, inline=True)
+  
+  embed.add_field(name="Tốc độ gió", value='{0}m/s'.format(wind_speed), inline=True)
+  
+  await ctx.send(embed=embed)
   
 @bot.command()
 async def define(ctx, arg):
