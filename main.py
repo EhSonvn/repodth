@@ -189,13 +189,7 @@ async def play(ctx, url=""):
       url2 = info['formats'][0]['url']
       source = await discord.FFmpegOpusAudio.from_probe(url2, **FFMPEG_OPTIONS)
       voice2.play(source)
-      i += 1
-      
-  
-  
-      
-
- 
+      i += 1     
 
 @bot.command()
 async def pause(ctx):
