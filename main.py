@@ -7,9 +7,6 @@ import requests
 import os
 import discord
 import time
-import youtube_dl
-from discord.utils import get
-import time
 #chỉnh prefix
 prefix = "?"
 
@@ -34,7 +31,7 @@ year_rn = my_date.strftime("%Y")
 
 
 
-queue = []
+
 
 
 #event của bot
@@ -141,76 +138,9 @@ async def timern(ctx):
     ts = datetime.fromtimestamp(timestamp + 25200).strftime('%H:%M:%S')
 
     await ctx.send(ts)
-@bot.command(pass_context=True)
-async def join(ctx):
-  global voice
-  channel = ctx.message.author.voice.channel
-  voice = get(bot.voice_clients, guild=ctx.guild)
-  if not ctx.message.author.voice:
-    return await ctx.send("You're not in a voice channel!")
-  if voice and voice.is_connected():
-    await voice.move_to(channel)
-  else:
-    await ctx.send(f"Join {channel}")
-    voice = await channel.connect()
-    print(f"Bot has joined {channel}")  
-    
-@bot.command(pass_context=True)
-async def leave(ctx):
-  channel = ctx.message.author.voice.channel
-  voice = get(bot.voice_clients, guild=ctx.guild)  
-  if voice and voice.is_connected():
-    await voice.disconnect()
-    await ctx.send(f"Left {channel}")
-    print(f"The bot has left {channel}")
-  else:
-    print("Bot was told to leave in a channel that it didn't join")
-    await ctx.send(f"Its seems like I haven't joined any channel, you mean join instead of leave?")
-
-@bot.command()
-async def ls(ctx, url):
-  queue.append(str(url))
-  await ctx.send("The song has been added into queue!")
-
-@bot.command(pass_context=True)
-async def play(ctx, url=""):  
-  global voice2
-  voice2 = ctx.voice_client 
-  queue.append(str(url))  
-  i = 0
-
-  FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
-  YDL_OPTIONS = {
-    'format':"bestaudio"
-  }
-  for i in range(len(queue)):
-    with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
-      info = ydl.extract_info(queue[i], download=False)
-      url2 = info['formats'][0]['url']
-      source = await discord.FFmpegOpusAudio.from_probe(url2, **FFMPEG_OPTIONS)
-      voice2.play(source)
-      i += 1     
-
-@bot.command()
-async def pause(ctx):
-  await ctx.voice_client.pause()
-  await ctx.send("Paused!")
-
-@bot.command()
-async def resume(ctx):
-  await ctx.voice_client.resume()
-  await ctx.send("Resumed!")
-
-
-  
-@bot.command()
-async def showq(ctx):
-  await ctx.send(queue)
-
-@bot.command()
-async def skip(ctx):
-  await queue.pop(0)
-
 
 #chạy bot
 bot.run(os.getenv('secret_token'))
+
+
+    
