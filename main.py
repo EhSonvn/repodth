@@ -14,8 +14,6 @@ prefix = "?"
 
 bot = commands.Bot(command_prefix=prefix)
 
-
-
 #khai báo biến ngày tháng năm và dùng múi giờ việt nam
 my_time = datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).time()
 
@@ -29,14 +27,7 @@ month_rn = my_date.strftime("%m")
 
 year_rn = my_date.strftime("%Y")
 
-
-
-
-
-
 #event của bot
-
-
 @bot.event
 async def on_ready():
     await bot.change_presence(status=discord.Status.online, activity=discord.Game('Forecasting.'))
