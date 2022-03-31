@@ -63,7 +63,7 @@ async def monthrn(ctx):
 async def yearrn(ctx):
     await ctx.send(year_rn)
 
-
+#xem thời tiết
 @bot.command()
 async def xemtt(ctx, arg1, arg2='', arg3=''):
     api_key = os.getenv('weather_api')
@@ -113,7 +113,7 @@ async def xemtt(ctx, arg1, arg2='', arg3=''):
 
     await ctx.send(embed=embed)
 
-
+#xem định nghĩa của 1 từ nào đó
 @bot.command()
 async def define(ctx, arg4, arg5=''):
     words = arg4
@@ -129,7 +129,7 @@ async def define(ctx, arg4, arg5=''):
     a = "Word: {0}\n Definition: {1}\n ".format(word_def, word_def2)
     await ctx.send(a)
 
-
+#xem giờ dùng epoch
 @bot.command()
 async def timern(ctx):
 
