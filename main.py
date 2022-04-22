@@ -7,14 +7,15 @@ import requests
 import os
 import discord
 import time
+intents = discord.Intents.default()
+intents.members = True
+start_time = time.time()
 #chỉnh prefix
 prefix = "?"
 
 #khởi tạo bot
 
-bot = commands.Bot(command_prefix=prefix)
-
-
+bot = commands.Bot(command_prefix=prefix,intents=intents)
 
 #khai báo biến ngày tháng năm và dùng múi giờ việt nam
 my_time = datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).time()
@@ -30,13 +31,7 @@ month_rn = my_date.strftime("%m")
 year_rn = my_date.strftime("%Y")
 
 
-
-
-
-
-#event của bot
-
-
+  
 @bot.event
 async def on_ready():
     await bot.change_presence(status=discord.Status.online, activity=discord.Game('Forecasting.'))
@@ -63,7 +58,7 @@ async def monthrn(ctx):
 async def yearrn(ctx):
     await ctx.send(year_rn)
 
-
+#xem thời tiết
 @bot.command()
 async def xemtt(ctx, arg1, arg2='', arg3=''):
     api_key = os.getenv('weather_api')
@@ -113,7 +108,7 @@ async def xemtt(ctx, arg1, arg2='', arg3=''):
 
     await ctx.send(embed=embed)
 
-
+#xem định nghĩa của 1 từ nào đó
 @bot.command()
 async def define(ctx, arg4, arg5=''):
     words = arg4
@@ -129,9 +124,9 @@ async def define(ctx, arg4, arg5=''):
     a = "Word: {0}\n Definition: {1}\n ".format(word_def, word_def2)
     await ctx.send(a)
 
-
+#xem giờ dùng epoch
 @bot.command()
-async def timern(ctx):
+async def timern(ctx, ):
 
     timestamp = time.time()
 
@@ -139,8 +134,30 @@ async def timern(ctx):
 
     await ctx.send(ts)
 
+#xem ảnh 
+@bot.command()
+async def apod(ctx, arg=date_rn, arg2=month_rn, arg3=year_rn):
+  date = str(arg3) + '-' + str(arg2) + '-' + str(arg)
+  apod_api = os.getenv('nasa_api')
+  nasa_link = "https://api.nasa.gov/planetary/apod"
+  param = {
+    'api_key': apod_api,
+    'hd': True,
+    'date': date,
+    'thumbs': True
+
+  }
+  apod = requests.get(nasa_link, params=param).json()
+  if apod['media_type'] == 'image':
+    await ctx.send(apod['url'])
+  else:
+    yt_link = apod['url']
+    embed = yt_link.replace("embed/", "watch?v=")
+    await ctx.send(embed) 
+
+
+print("The code ran in %s seconds" % (time.time() -start_time))
+
+
 #chạy bot
-bot.run(os.getenv('secret_token'))
-
-
-    
+bot.run(os.getenv('secret_token'))    
