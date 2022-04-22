@@ -15,11 +15,10 @@ prefix = "?"
 
 #khởi tạo bot
 
-<<<<<<< HEAD
-bot = commands.Bot(command_prefix=prefix,intents=intents)
-=======
+
+
+
 bot = commands.Bot(command_prefix=prefix)
->>>>>>> 79ad347f2d68f69f02f5778aa042c9e07f3d6e1c
 
 #khai báo biến ngày tháng năm và dùng múi giờ việt nam
 my_time = datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).time()
@@ -34,12 +33,11 @@ month_rn = my_date.strftime("%m")
 
 year_rn = my_date.strftime("%Y")
 
-<<<<<<< HEAD
 
   
-=======
+
 #event của bot
->>>>>>> 79ad347f2d68f69f02f5778aa042c9e07f3d6e1c
+
 @bot.event
 async def on_ready():
     await bot.change_presence(status=discord.Status.online, activity=discord.Game('Forecasting.'))
