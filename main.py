@@ -4,7 +4,6 @@ import pytz
 from datetime import date
 from discord.ext import commands
 import requests
-import os
 import discord
 import time
 intents = discord.Intents.default()
@@ -15,11 +14,7 @@ prefix = "?"
 
 #khởi tạo bot
 
-<<<<<<< HEAD
 bot = commands.Bot(command_prefix=prefix,intents=intents)
-=======
-bot = commands.Bot(command_prefix=prefix)
->>>>>>> 79ad347f2d68f69f02f5778aa042c9e07f3d6e1c
 
 #khai báo biến ngày tháng năm và dùng múi giờ việt nam
 my_time = datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).time()
@@ -34,12 +29,8 @@ month_rn = my_date.strftime("%m")
 
 year_rn = my_date.strftime("%Y")
 
-<<<<<<< HEAD
-
+apod_api = 'd6HuN4F1mCm4jRyKq2K2GqtHEyaa3jpCIyBrarW4'
   
-=======
-#event của bot
->>>>>>> 79ad347f2d68f69f02f5778aa042c9e07f3d6e1c
 @bot.event
 async def on_ready():
     await bot.change_presence(status=discord.Status.online, activity=discord.Game('Forecasting.'))
@@ -69,9 +60,8 @@ async def yearrn(ctx):
 #xem thời tiết
 @bot.command()
 async def xemtt(ctx, arg1, arg2='', arg3=''):
-    api_key = os.getenv('weather_api')
 
-    link = 'http://api.weatherapi.com/v1/current.json?key=' + api_key + '&q=' + arg1 + '%20' + arg2 + '%20' + arg3 + '&lang=en'
+    link = 'http://api.weatherapi.com/v1/current.json?key=' + '9cd9b907b5ee44cf86c41145222703' + '&q=' + arg1 + '%20' + arg2 + '%20' + arg3 + '&lang=en'
 
     data = requests.get(link).json()
 
@@ -146,7 +136,6 @@ async def timern(ctx, ):
 @bot.command()
 async def apod(ctx, arg=date_rn, arg2=month_rn, arg3=year_rn):
   date = str(arg3) + '-' + str(arg2) + '-' + str(arg)
-  apod_api = os.getenv('nasa_api')
   nasa_link = "https://api.nasa.gov/planetary/apod"
   param = {
     'api_key': apod_api,
@@ -163,9 +152,14 @@ async def apod(ctx, arg=date_rn, arg2=month_rn, arg3=year_rn):
     embed = yt_link.replace("embed/", "watch?v=")
     await ctx.send(embed) 
 
+@bot.command()
+async def sp(ctx, q):
+    nasa_link = "https://images-api.nasa.gov/search?q="+str(q)
+    data = requests.get(nasa_link).json()
+    await ctx.send(data)
 
 print("The code ran in %s seconds" % (time.time() -start_time))
 
 
 #chạy bot
-bot.run(os.getenv('secret_token'))    
+bot.run('OTU3MTUzNjM2MDYzMDEwODM3.Yj6oyQ.N0DmEVIuS8XLDcizwIIqNu570FM')    
