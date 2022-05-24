@@ -1,4 +1,4 @@
-#import thư viện
+#import some libraries
 from datetime import datetime
 import pytz
 from datetime import date
@@ -16,7 +16,7 @@ start_time = time.time()
 #chỉnh prefix
 prefix = ">"
 
-#khởi tạo bot
+#initiate the bot + some datetime variables
 
 bot = commands.Bot(command_prefix=prefix)
 #khai báo biến ngày tháng năm và dùng múi giờ việt nam
@@ -43,13 +43,13 @@ send = None
 @bot.event
 async def on_ready():
     await bot.change_presence(status=discord.Status.online,
-                              activity=discord.Game('Forecasting.'))
+                              activity=discord.Game('Working on updates!'))
     print('We have logged in as {0.user}'.format(bot))
   
   
 
 
-#command của bot
+#bot commands
 @bot.command()
 async def khoidong(ctx):
     await ctx.send("Bot đã sẵn sàng!")
@@ -70,7 +70,7 @@ async def yearrn(ctx):
     await ctx.send(year_rn)
 
 
-#xem thời tiết
+#weather command
 @bot.command()
 async def xemtt(ctx, arg1, arg2='', arg3=''):
     api_key = os.getenv('weather_api')
@@ -119,7 +119,7 @@ async def xemtt(ctx, arg1, arg2='', arg3=''):
                 api.status_code))
 
 
-    #xem định nghĩa của 1 từ nào đó
+#view a word's definitions
 @bot.command()
 async def define(ctx, arg4, arg5=''):
     words = arg4
@@ -136,7 +136,7 @@ async def define(ctx, arg4, arg5=''):
     await ctx.send(a)
 
 
-#xem giờ dùng epoch
+#view time using epoc (linux time)
 @bot.command()
 async def timern(ctx, ):
 
@@ -147,7 +147,7 @@ async def timern(ctx, ):
     await ctx.send(ts)
 
 
-#xem ảnh
+#apod images using nasa api
 @bot.command()
 async def apod(ctx, arg=date_rn, arg2=month_rn, arg3=year_rn):
     date = str(arg3) + '-' + str(arg2) + '-' + str(arg)
@@ -169,7 +169,7 @@ async def apod(ctx, arg=date_rn, arg2=month_rn, arg3=year_rn):
     
       
 
-
+#mars images from nasa rovers
 @bot.command()
 async def marspic(ctx, arg=b, arg2="", arg3=""):
     day = random.choice(range(0, 1001))
@@ -233,7 +233,7 @@ async def marspic(ctx, arg=b, arg2="", arg3=""):
                 "Truy cập bị cấm, xin hãy thử lại lần sau! Mã lỗi: {0}".format(
                     api.status_code))
 
-
+#hall of fame
 @bot.command()
 async def hof(ctx):
   embed =  discord.Embed(title="Hall of fame", color = discord.Color.blue())
@@ -251,5 +251,5 @@ async def sang(ctx):
 print("The code ran in %s seconds" % (time.time() - start_time))
 
 
-#chạy bot
+#run the bot with token
 bot.run(os.getenv('secret_token'))
