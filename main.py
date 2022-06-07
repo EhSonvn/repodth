@@ -73,7 +73,11 @@ async def monthrn(ctx):
 async def yearrn(ctx):
     await ctx.send(year_rn)
 
-
+#Custom commands for members
+@bot.command()
+async def hoanglinh(ctx):
+  await ctx.send("anh quận béo có thương iem hong??")
+  
 #Weather command
 @bot.command()
 async def xemtt(ctx, arg1, arg2='', arg3=''):
@@ -272,10 +276,6 @@ async def getf(ctx, arg):
 
 print("The code ran in %s seconds" % (time.time() - start_time))
 
-
-@bot.command()
-async def hoanglinh(ctx):
-  await ctx.send("anh quận béo có thương iem hong??")
 
 #Run the bot with token
 bot.run(os.getenv('secret_token'))
