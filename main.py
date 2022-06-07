@@ -1,4 +1,4 @@
-#import some libraries
+#Import some libraries
 from datetime import datetime
 import pytz
 from datetime import date
@@ -8,18 +8,20 @@ import os
 import discord
 import time
 import random
+import pathlib
+
 
 
 intents = discord.Intents.default()
 intents.members = True
 start_time = time.time()
-#chỉnh prefix
+#Make a prefix 
 prefix = ">"
 
-#initiate the bot + some datetime variables
+#Initiate the bot + some datetime variables
 
 bot = commands.Bot(command_prefix=prefix)
-#khai báo biến ngày tháng năm và dùng múi giờ việt nam
+
 my_time = datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).time()
 
 my_time = datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).time()
@@ -36,20 +38,22 @@ a = ['Spirit', 'Curiosity', 'Opportunity']
 
 b = random.choice(a)
 
-send = None
-#event của bot
+#Get some env variables (api_keys)
+key = os.getenv('nasa_api')
+
+api_key = os.getenv('weather_api')
+#Bot events (Not so important)
 
 
 @bot.event
 async def on_ready():
     await bot.change_presence(status=discord.Status.online,
                               activity=discord.Game('Working on updates!'))
-    print('We have logged in as {0.user}'.format(bot))
-  
+    print('We have logged in as {0.user}'.format(bot))  
   
 
 
-#bot commands
+#Bot commands
 @bot.command()
 async def khoidong(ctx):
     await ctx.send("Bot đã sẵn sàng!")
@@ -70,10 +74,9 @@ async def yearrn(ctx):
     await ctx.send(year_rn)
 
 
-#weather command
+#Weather command
 @bot.command()
 async def xemtt(ctx, arg1, arg2='', arg3=''):
-    api_key = os.getenv('weather_api')
     link = 'http://api.weatherapi.com/v1/current.json?key=' + api_key + '&q=' + arg1 + '%20' + arg2 + '%20' + arg3 + '&lang=en'
     api = requests.get(link)
     data = api.json()
@@ -119,7 +122,7 @@ async def xemtt(ctx, arg1, arg2='', arg3=''):
                 api.status_code))
 
 
-#view a word's definitions
+#View a word's definitions
 @bot.command()
 async def define(ctx, arg4, arg5=''):
     words = arg4
@@ -147,7 +150,7 @@ async def timern(ctx, ):
     await ctx.send(ts)
 
 
-#apod images using nasa api
+#Apod images using NASA api
 @bot.command()
 async def apod(ctx, arg=date_rn, arg2=month_rn, arg3=year_rn):
     date = str(arg3) + '-' + str(arg2) + '-' + str(arg)
@@ -169,13 +172,12 @@ async def apod(ctx, arg=date_rn, arg2=month_rn, arg3=year_rn):
     
       
 
-#mars images from nasa rovers
+#Mars images from nasa rovers
 @bot.command()
 async def marspic(ctx, arg=b, arg2="", arg3=""):
     day = random.choice(range(0, 1001))
     arg3 = str(day)
     if arg2 != "":
-        key = os.getenv('nasa_api')
         link = "https://api.nasa.gov/mars-photos/api/v1/rovers/" + arg + "/photos?sol=" + str(
             arg3) + "&api_key=" + key
         api = requests.get(link)
@@ -205,7 +207,6 @@ async def marspic(ctx, arg=b, arg2="", arg3=""):
                     api.status_code))
 
     else:
-        key = os.getenv('nasa_api')
         link = "https://api.nasa.gov/mars-photos/api/v1/rovers/" + arg + "/photos?sol=" + arg3 + "camera=" + arg2 + "&api_key=" + key
         api = requests.get(link)
         if api.status_code == 200:
@@ -233,7 +234,7 @@ async def marspic(ctx, arg=b, arg2="", arg3=""):
                 "Truy cập bị cấm, xin hãy thử lại lần sau! Mã lỗi: {0}".format(
                     api.status_code))
 
-#hall of fame
+#Hall of fame
 @bot.command()
 async def hof(ctx):
   embed =  discord.Embed(title="Hall of fame", color = discord.Color.blue())
@@ -248,8 +249,33 @@ async def sang(ctx):
   await ctx.send("Sang là cựu owner của \"Tên server nè\", là 1 trong những người đầu tiên đưa ra ý tưởng về bot. Không có sang, bot sẽ không có được như ngày hôm nay, mãi nhớ sang.")
 
 
+@bot.command()
+async def upf(ctx, arg, *stuff):
+  msg  = ctx.message
+  if str(msg.attachments) == "[]":
+    await ctx.send("You didnt send any files!")
+  else:
+    split_v1 = str(msg.attachments).split("filename='")[1]
+    filename = str(split_v1).split("' ")[0]
+    new_file_name = pathlib.Path(filename).suffix
+    await msg.attachments[0].save(fp="uploaded_files/{}".format(arg + new_file_name))
+    
+    await ctx.send("File uploaded.")
+    await ctx.send("You file id is {}!".format(arg))
+    await ctx.send("Your name file name has been changed to {0}".format(arg + new_file_name))
+
+@bot.command()
+async def getf(ctx, arg):
+  a = "uploaded_files/{}".format(arg)
+  await ctx.send(file=discord.File(a))
+  await ctx.send("File sent!")
+
 print("The code ran in %s seconds" % (time.time() - start_time))
 
 
-#run the bot with token
+@bot.command()
+async def hoanglinh(ctx):
+  await ctx.send("anh quận béo có thương iem hong??")
+
+#Run the bot with token
 bot.run(os.getenv('secret_token'))
