@@ -8,8 +8,7 @@ import os
 import discord
 import time
 import random
-import pathlib
-
+import json 
 
 
 intents = discord.Intents.default()
@@ -48,7 +47,7 @@ api_key = os.getenv('weather_api')
 @bot.event
 async def on_ready():
     await bot.change_presence(status=discord.Status.online,
-                              activity=discord.Game('Working on updates!'))
+                              activity=discord.Game('Happy Pride Month!'))
     print('We have logged in as {0.user}'.format(bot))  
   
 
@@ -238,19 +237,6 @@ async def marspic(ctx, arg=b, arg2="", arg3=""):
                 "Truy cập bị cấm, xin hãy thử lại lần sau! Mã lỗi: {0}".format(
                     api.status_code))
 
-#Hall of fame
-@bot.command()
-async def hof(ctx):
-  embed =  discord.Embed(title="Hall of fame", color = discord.Color.blue())
-  embed.add_field(name="Hmm#3608", value="Thiết kế, làm bot.")
-  embed.add_field(name="nolan ッ#6261", value="Thiết kế, quản lý cộng đồng.")
-  embed.add_field(name="god staff jax#9036", value="Đưa ra ý tưởng, tài trợ.")
-  embed.set_footer(text="Ngoài ra, chúng tôi còn cám ơn những người dùng bot, không có các bạn thì chúng tôi đã không có được như này. Mong các bạn sẽ có trải nghiệm tốt nhất khi dùng bot!")
-  await ctx.send(embed=embed)
-
-@bot.command()
-async def sang(ctx):
-  await ctx.send("Sang là cựu owner của \"Tên server nè\", là 1 trong những người đầu tiên đưa ra ý tưởng về bot. Không có sang, bot sẽ không có được như ngày hôm nay, mãi nhớ sang.")
 
 
 @bot.command()
@@ -261,21 +247,39 @@ async def upf(ctx, arg, *stuff):
   else:
     split_v1 = str(msg.attachments).split("filename='")[1]
     filename = str(split_v1).split("' ")[0]
-    new_file_name = pathlib.Path(filename).suffix
-    await msg.attachments[0].save(fp="uploaded_files/{}".format(arg + new_file_name))
-    
+    await msg.attachments[0].save(fp="uploaded_files/{}".format(filename))
+    info = {
+      filename: arg
+    }
+    json_object = json.dumps(info)
+    with open("info.json", "a") as f:
+      f.write("{} \n".format(json_object))
     await ctx.send("File uploaded.")
     await ctx.send("You file id is {}!".format(arg))
-    await ctx.send("Your name file name has been changed to {0}".format(arg + new_file_name))
-
+    
 @bot.command()
 async def getf(ctx, arg):
-  a = "uploaded_files/{}".format(arg)
+  json_data = [json.loads(line) for line in open('info.json','r')]
+  for file_name in json_data:
+    for i in file_name:
+      if file_name[i] == arg:
+        b = file_name.keys()
+  for i in b:
+    a = "uploaded_files/{}".format(i)
   await ctx.send(file=discord.File(a))
-  await ctx.send("File sent!")
-
+  await ctx.send("File sent!")   
+  
+#code như lồn, chăn bò đi.....
+  
+@bot.command()
+async def update(ctx, arg, arg1):
+  if eval(arg) > 0:
+    json_data = [json.loads(line) for line in open('info.json','r')]
+    for file_name in json_data:
+      if arg in file_name:
+        arg = arg1
+        await ctx.send("Update completed!")
 print("The code ran in %s seconds" % (time.time() - start_time))
-
 
 #Run the bot with token
 bot.run(os.getenv('secret_token'))
