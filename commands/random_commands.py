@@ -16,7 +16,7 @@ class random_cmds(commands.Cog):
     await ctx.send("anh quận béo có thương iem hong??")
 
   @commands.command()
-  async def khoidong(ctx):
+  async def khoidong(self, ctx):
     await ctx.send("Bot đã sẵn sàng!")
 
     
