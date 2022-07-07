@@ -23,4 +23,4 @@ async def on_ready():
 print("The code ran in %s seconds" % (time.time() - start_time))
 
 
-bot.run(os.getenv('secret_token'))
+bot.run(os.getenv('OTU3MTUzNjM2MDYzMDEwODM3.GSzE00.wQ4ZToaTaV9PNMj0fLeIfvInWVYuGamGxNu9uA'))
