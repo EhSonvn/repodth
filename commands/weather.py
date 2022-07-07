@@ -3,7 +3,7 @@ from discord.ext import commands
 import requests 
 import os
 
-api_key = os.getenv('weather_api')
+api_key = os.getenv('9cd9b907b5ee44cf86c41145222703')
 
 class weather(commands.Cog):
   def __init__(self, bot):
