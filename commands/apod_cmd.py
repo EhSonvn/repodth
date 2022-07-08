@@ -11,7 +11,7 @@ month_rn = my_date.strftime("%m")
 
 year_rn = my_date.strftime("%Y")
 
-key = os.getenv('d6HuN4F1mCm4jRyKq2K2GqtHEyaa3jpCIyBrarW4')
+key = 'd6HuN4F1mCm4jRyKq2K2GqtHEyaa3jpCIyBrarW4'
 
 class apod_cmd(commands.Cog):
   def __init__(self, bot):

@@ -4,7 +4,7 @@ import random
 import os
 import requests
 
-key = os.getenv('nasa_api')
+key = 'd6HuN4F1mCm4jRyKq2K2GqtHEyaa3jpCIyBrarW4'
 
 a = ['Spirit', 'Curiosity', 'Opportunity']
 
