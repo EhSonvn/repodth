@@ -1,9 +1,6 @@
 from discord.ext import commands
 import os
 import discord
-import time
-
-start_time = time.time()
  
 prefix = ">"
 
@@ -19,7 +16,6 @@ async def on_ready():
     print('We have logged in as {0.user}'.format(bot))  
    
 
-print("The code ran in %s seconds" % (time.time() - start_time))
 
 
-bot.run(os.getenv('OTU3MTUzNjM2MDYzMDEwODM3.GSzE00.wQ4ZToaTaV9PNMj0fLeIfvInWVYuGamGxNu9uA'))
+bot.run('OTU3MTUzNjM2MDYzMDEwODM3.GSzE00.wQ4ZToaTaV9PNMj0fLeIfvInWVYuGamGxNu9uA')
