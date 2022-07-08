@@ -20,7 +20,7 @@ class apod_cmd(commands.Cog):
   @commands.command()
   async def apod(self, ctx, arg=date_rn, arg2=month_rn, arg3=year_rn):
     date = str(arg3) + '-' + str(arg2) + '-' + str(arg)
-    apod_api = os.getenv('d6HuN4F1mCm4jRyKq2K2GqtHEyaa3jpCIyBrarW4')
+    apod_api = 'd6HuN4F1mCm4jRyKq2K2GqtHEyaa3jpCIyBrarW4'
     nasa_link = "https://api.nasa.gov/planetary/apod"
     param = {'api_key': apod_api, 'hd': True, 'date': date, 'thumbs': True}
     apod = requests.get(nasa_link, params=param)
