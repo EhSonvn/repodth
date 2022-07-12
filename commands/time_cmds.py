@@ -3,7 +3,7 @@ from datetime import datetime
 import pytz
 import time
 
-my_time = datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).time()
+my_time = datetime.now(pytz.timezone('Asia/Ho_Chi_Minh'))
 
 date_rn = my_time.strftime("%d")
 
