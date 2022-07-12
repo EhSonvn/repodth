@@ -35,7 +35,7 @@ class t_cmd(commands.Cog):
   @commands.command()
   async def timern(self, ctx):
     timestamp = time.time()
-    ts = datetime.fromtimestamp(timestamp + 25200).strftime('%H:%M:%S')
+    ts = datetime.fromtimestamp(timestamp).strftime('%H:%M:%S')
     await ctx.send(ts)
 
 def setup(bot):
