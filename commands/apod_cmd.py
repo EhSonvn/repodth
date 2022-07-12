@@ -3,7 +3,7 @@ from datetime import date
 from datetime import datetime
 import pytz
 import requests
-import os
+
 
 my_time = datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).time()
 
