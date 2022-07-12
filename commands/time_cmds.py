@@ -1,20 +1,15 @@
 from discord.ext import commands
 from datetime import datetime
 import pytz
-from datetime import date
 import time
 
 my_time = datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).time()
 
-my_time = datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).time()
+date_rn = my_time.strftime("%d")
 
-my_date = date.today()
+month_rn = my_time.strftime("%m")
 
-date_rn = my_date.strftime("%d")
-
-month_rn = my_date.strftime("%m")
-
-year_rn = my_date.strftime("%Y")
+year_rn = my_time.strftime("%Y")
 
 class t_cmd(commands.Cog):
 

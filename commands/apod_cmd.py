@@ -1,15 +1,17 @@
 from discord.ext import commands
 from datetime import date
+from datetime import datetime
+import pytz
 import requests
 import os
 
-my_date = date.today()
+my_time = datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).time()
 
-date_rn = my_date.strftime("%d")
+date_rn = my_time.strftime("%d")
 
-month_rn = my_date.strftime("%m")
+month_rn = my_time.strftime("%m")
 
-year_rn = my_date.strftime("%Y")
+year_rn = my_time.strftime("%Y")
 
 key = 'd6HuN4F1mCm4jRyKq2K2GqtHEyaa3jpCIyBrarW4'
 
