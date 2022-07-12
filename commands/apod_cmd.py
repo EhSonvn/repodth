@@ -1,8 +1,9 @@
 from discord.ext import commands
 from time_vars import time_var
 import requests
+import os 
 
-key = 'd6HuN4F1mCm4jRyKq2K2GqtHEyaa3jpCIyBrarW4'
+
 
 class apod_cmd(commands.Cog):
   def __init__(self, bot):
@@ -13,7 +14,7 @@ class apod_cmd(commands.Cog):
     date = str(arg3) + '-' + str(arg2) + '-' + str(arg)
     apod_api = 'd6HuN4F1mCm4jRyKq2K2GqtHEyaa3jpCIyBrarW4'
     nasa_link = "https://api.nasa.gov/planetary/apod"
-    param = {'api_key': apod_api, 'hd': True, 'date': date, 'thumbs': True}
+    param = {'api_key': os.getenv('nasa_api_key'), 'hd': True, 'date': date, 'thumbs': True}
     apod = requests.get(nasa_link, params=param)
     if apod.status_code == 404:
       await ctx.send("Hôm nay không có ảnh! Mã lỗi {0}".format(apod.status_code))

@@ -3,8 +3,7 @@ import discord
 import random
 import os
 import requests
-
-key = 'd6HuN4F1mCm4jRyKq2K2GqtHEyaa3jpCIyBrarW4'
+import os
 
 a = ['Spirit', 'Curiosity', 'Opportunity']
 
@@ -20,7 +19,7 @@ class mars_pic(commands.Cog):
     arg3 = str(day)
     if arg2 != "":
         link = "https://api.nasa.gov/mars-photos/api/v1/rovers/" + arg + "/photos?sol=" + str(
-            arg3) + "&api_key=" + key
+            arg3) + "&api_key=" + os.getenv('nasa_api_key')
         api = requests.get(link)
         if api.status_code == 200:
             data = api.json()

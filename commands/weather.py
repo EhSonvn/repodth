@@ -3,7 +3,6 @@ from discord.ext import commands
 import requests 
 import os
 
-api_key = '9cd9b907b5ee44cf86c41145222703'
 
 class weather(commands.Cog):
   def __init__(self, bot):
@@ -11,7 +10,7 @@ class weather(commands.Cog):
 
   @commands.command()
   async def xemtt(self, ctx, arg1, arg2='', arg3=''):
-    link = 'http://api.weatherapi.com/v1/current.json?key=' + api_key + '&q=' + arg1 + '%20' + arg2 + '%20' + arg3 + '&lang=en'
+    link = 'http://api.weatherapi.com/v1/current.json?key=' + os.getenv('') + '&q=' + arg1 + '%20' + arg2 + '%20' + arg3 + '&lang=en'
     api = requests.get(link)
     data = api.json()
     if api.status_code == 200:
