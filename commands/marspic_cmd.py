@@ -47,7 +47,7 @@ class mars_pic(commands.Cog):
                     api.status_code))
 
     else:
-        link = "https://api.nasa.gov/mars-photos/api/v1/rovers/" + arg + "/photos?sol=" + arg3 + "camera=" + arg2 + "&api_key=" + key
+        link = "https://api.nasa.gov/mars-photos/api/v1/rovers/" + arg + "/photos?sol=" + arg3 + "camera=" + arg2 + "&api_key=" + os.getenv('nasa_api_key')
         api = requests.get(link)
         if api.status_code == 200:
             data = api.json()

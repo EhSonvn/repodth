@@ -10,7 +10,7 @@ class weather(commands.Cog):
 
   @commands.command()
   async def xemtt(self, ctx, arg1, arg2='', arg3=''):
-    link = 'http://api.weatherapi.com/v1/current.json?key=' + os.getenv('') + '&q=' + arg1 + '%20' + arg2 + '%20' + arg3 + '&lang=en'
+    link = 'http://api.weatherapi.com/v1/current.json?key=' + os.getenv('weather_api_key') + '&q=' + arg1 + '%20' + arg2 + '%20' + arg3 + '&lang=en'
     api = requests.get(link)
     data = api.json()
     if api.status_code == 200:
