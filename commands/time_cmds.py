@@ -1,6 +1,7 @@
 from discord.ext import commands
 from datetime import datetime
 import pytz
+import time
 
 my_time = datetime.now(pytz.timezone('Asia/Ho_Chi_Minh'))
 
@@ -33,7 +34,7 @@ class t_cmd(commands.Cog):
 
   @commands.command()
   async def timern(self, ctx):
-    ts = my_time.time().strftime('%H:%M:%S')
+    ts = datetime.fromtimestamp(time.time()+25200).strftime('%H:%M:%S')
     await ctx.send(ts)
 
 def setup(bot):
