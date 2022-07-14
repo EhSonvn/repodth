@@ -1,7 +1,8 @@
 from discord.ext import commands
-from time_vars import time_var
 import requests
 import os 
+from datetime import datetime
+import pytz
 
 
 
@@ -10,9 +11,8 @@ class apod_cmd(commands.Cog):
     self.bot = bot
 
   @commands.command()
-  async def apod(self, ctx, arg=time_var.date_rn, arg2=time_var.month_rn, arg3=time_var.year_rn):
+  async def apod(self, ctx, arg=datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).strftime("%d"), arg2=datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).strftime("%m"), arg3=datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).strftime("%Y")):
     date = str(arg3) + '-' + str(arg2) + '-' + str(arg)
-    apod_api = 'd6HuN4F1mCm4jRyKq2K2GqtHEyaa3jpCIyBrarW4'
     nasa_link = "https://api.nasa.gov/planetary/apod"
     param = {'api_key': os.getenv('nasa_api_key'), 'hd': True, 'date': date, 'thumbs': True}
     apod = requests.get(nasa_link, params=param)

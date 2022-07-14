@@ -1,6 +1,7 @@
 from discord.ext import commands
-from time_vars import time_var
-
+import time
+from datetime import datetime
+import pytz
 
 class t_cmd(commands.Cog):
 
@@ -13,19 +14,19 @@ class t_cmd(commands.Cog):
 
   @commands.command()
   async def dayrn(self, ctx):
-    await ctx.send(time_var.date_rn)
+    await ctx.send(datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).strftime("%d"))
     
   @commands.command()
   async def monthrn(self, ctx):
-    await ctx.send(time_var.month_rn)
+    await ctx.send(datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).strftime("%m"))
     
   @commands.command()
   async def yearrn(self, ctx):
-    await ctx.send(time_var.year_rn)
+    await ctx.send(datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).strftime("%Y"))
 
   @commands.command()
   async def timern(self, ctx):
-    await ctx.send(time_var.ts)
+    await ctx.send(datetime.fromtimestamp(time.time()+25200).strftime('%H:%M:%S'))
 
 def setup(bot):
   bot.add_cog(t_cmd(bot))
