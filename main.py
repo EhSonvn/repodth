@@ -17,7 +17,7 @@ async def on_ready():
    
 @bot.event
 async def on_command_error(ctx, error):
-    if isintance(error, commands.MissingRequiredArgument):
+    if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("An error happened: Missing Required Argument.")
 
 
