@@ -15,7 +15,10 @@ async def on_ready():
     await bot.change_presence(status=discord.Status.online)
     print('We have logged in as {0.user}'.format(bot))  
    
-
+@bot.event()
+async def on_command_error(ctx, error):
+    if isintance(error, commands.MissingRequiredArgument):
+        await ctx.send("An error happened: Missing Required Argument.")
 
 
 bot.run(os.getenv('bot_token'))
