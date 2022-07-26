@@ -23,5 +23,9 @@ async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("An error happened: Missing Required Argument.")
 
-
+@bot.command()
+async def test(ctx):
+    async ctx.send("Bot is running!")  
+    
+    
 bot.run(os.getenv('bot_token'))
