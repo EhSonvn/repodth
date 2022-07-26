@@ -5,7 +5,7 @@ from datetime import datetime
 import pytz
 
 
-class apod_cmd(commands.Cog):
+class ApodCmd(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -30,4 +30,4 @@ class apod_cmd(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(apod_cmd(bot))
+    bot.add_cog(ApodCmd(bot))
