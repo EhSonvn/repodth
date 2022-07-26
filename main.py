@@ -9,6 +9,7 @@ bot = commands.Bot(command_prefix=prefix, intents=discord.Intents.all())
 for file in os.listdir("commands"):
     if file.endswith(".py"):
         bot.load_extension(f'commands.{file[:-3]}')
+print("All cogs are loaded")
 
 
 @bot.event
