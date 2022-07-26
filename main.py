@@ -25,7 +25,7 @@ async def on_command_error(ctx, error):
 
 @bot.command()
 async def test(ctx):
-    async ctx.send("Bot is running!")  
+    await ctx.send("Bot is running!")  
     
     
 bot.run(os.getenv('bot_token'))
