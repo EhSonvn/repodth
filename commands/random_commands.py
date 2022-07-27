@@ -14,11 +14,11 @@ class RandomCmds(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
-    async def hoang_linh(self, ctx):
+    async def hoanglinh(self, ctx):
         await ctx.send("anh quận béo có thương iem hong??")
 
     @commands.command()
-    async def khoi_dong(self, ctx):
+    async def khoidong(self, ctx):
         await ctx.send("Bot đã sẵn sàng!")
 
 
