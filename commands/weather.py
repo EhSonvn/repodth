@@ -9,7 +9,7 @@ class Weather(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def xem_tt(self, ctx, arg1, arg2='', arg3=''):
+    async def xemtt(self, ctx, arg1, arg2='', arg3=''):
         link = 'http://api.weatherapi.com/v1/current.json?key=' + os.getenv(
             'weather_api_key') + '&q=' + arg1 + '%20' + arg2 + '%20' + arg3 + '&lang=en'
         api = requests.get(link)
