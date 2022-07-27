@@ -15,7 +15,7 @@ class MarsPic(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def mars_pic(self, ctx, arg=b, arg2="", arg3=""):
+    async def marspic(self, ctx, arg=b, arg2="", arg3=""):
         day = random.choice(range(0, 1001))
         arg3 = str(day)
         if arg2 != "":
