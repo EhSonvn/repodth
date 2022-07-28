@@ -3,7 +3,6 @@ import discord
 import random
 import os
 import requests
-import os
 
 a = ['Spirit', 'Curiosity', 'Opportunity']
 
