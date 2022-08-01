@@ -58,7 +58,7 @@ class Weather(commands.Cog):
 
     @commands.command()
     async def dubao(self, ctx, day, arg1, arg2='', arg3=''):
-        link = "https://api.weatherapi.com/v1/forecast.json?key={0}&q=" + arg1 + '%20' + arg2 + '%20' + arg3 +"&days={1}&aqi=no&alerts=no".format(os.getenv('weather_api'), day)
+        link = "https://api.weatherapi.com/v1/forecast.json?key={0}&q=" + arg1 + '%20' + arg2 + '%20' + arg3 +"&days={1}&aqi=no&alerts=no".format(os.getenv('weather_api_key'), day)
         api = requests.get(link)
         data = api.json()
         if api.status_code == 200:
